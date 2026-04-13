@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "types": ["./temp/declarations/cc"],
+    "module": "commonjs",
+    "lib": ["es2015", "es2017", "dom"],
+    "target": "es6",
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "outDir": "temp/vscode-dist",
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": ["node_modules", "library", "local", "temp", "build", "settings"]
+}
