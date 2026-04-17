@@ -2,6 +2,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+
         characterName: cc.String,
         nameLabel: cc.Label,
 
@@ -22,7 +23,6 @@ cc.Class({
         targetRightX: 600,
     },
 
-    isRecovering: false,
     isMoving: false,
     currentTime: 0,
     currentMana: 0,
@@ -50,7 +50,7 @@ cc.Class({
 
         if (!this.isMoving && this.currentMana < this.maxMana) {
             this.currentTime += dt;
-            if (this.currentTime >= this.timeToReduceMana) {
+            if (this.currentTime >= this.timeRoRecoverMana) {
                 this.updateMana(this.manaRecovering);
                 this.currentTime = 0;
             }
