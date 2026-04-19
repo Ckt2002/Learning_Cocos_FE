@@ -1,7 +1,7 @@
 import mEventEmitter from "./EX3_EventEmitter";
-import { EventName } from "./Ex3_EventNameConst";
+import { EventName } from "./Ex3_Constant";
 
-export const ItemButton = cc.Class({
+export const ItemAnimation = cc.Class({
     extends: cc.Component,
 
     properties: {
@@ -18,6 +18,6 @@ export const ItemButton = cc.Class({
     },
 
     runEvent() {
-        mEventEmitter.instance.emit(EventName.RunAnimation, this.itemName);
+        mEventEmitter.instance.emit(EventName.SPINE_ANIMATION, this.itemName);
     }
 });

@@ -1,0 +1,51 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Spine Clip",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.0166666666666666,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 0,
+  "curveData": {
+    "props": {
+      "position": [
+        {
+          "frame": 0,
+          "value": [
+            -250,
+            -120,
+            0
+          ]
+        },
+        {
+          "frame": 0.5,
+          "value": [
+            -600,
+            -120,
+            0
+          ]
+        },
+        {
+          "frame": 1,
+          "value": [
+            80,
+            -120,
+            0
+          ]
+        }
+      ],
+      "angle": [
+        {
+          "frame": 0,
+          "value": 0
+        },
+        {
+          "frame": 1.0166666666666666,
+          "value": 360
+        }
+      ]
+    }
+  },
+  "events": []
+}

@@ -4,14 +4,22 @@ class mEventEmitter {
     constructor() {
         this.eventEmitter = new EventEmitter();
         this.eventEmitter.setMaxListeners(100);
+        this.listenerMap = new Map();
     }
 
     emit(...args) {
         this.eventEmitter.emit(...args);
     }
 
-    registerEvent(eventName, method) {
+    registerEvent(eventName, method, owner) {
         this.eventEmitter.on(eventName, method);
+
+        if (owner) {
+            if (!this.listenerMap.has(owner)) {
+                this.listenerMap.set(owner, []);
+            }
+            this.listenerMap.get(owner).push({ eventName, method });
+        }
     }
 
     registerOne(eventName, method) {
@@ -19,7 +27,22 @@ class mEventEmitter {
     }
 
     removeEvent(eventName, method) {
-        this.eventEmitter.off(eventName, method);
+        // this.eventEmitter.off(eventName, method);
+        this.eventEmitter.removeListener(eventName, method);
+    }
+
+    removeAllEvents(owner) {
+        if (!this.listenerMap.has(owner)) {
+            return;
+        }
+
+        const listeners = this.listenerMap.get(owner);
+
+        listeners.forEach(({ eventName, method }) => {
+            this.eventEmitter.removeListener(eventName, method);
+        });
+
+        this.listenerMap.delete(owner);
     }
 
     destroy() {
