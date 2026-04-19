@@ -1,4 +1,4 @@
-import { EAnimationType, EventName, NodeName } from "./Ex3_Constant";
+import { AnimationClip, EAnimationType, EventName, NodeName } from "./Ex3_Constant";
 import mEventEmitter from "./EX3_EventEmitter";
 import { Character } from "./Ex3_Character";
 import ManualAnimation from "./Ex3_ManualAnimation";
@@ -47,6 +47,7 @@ export const AnimationManager = cc.Class({
     start() {
         mEventEmitter.instance.registerEvent(EventName.SPINE_ANIMATION, this.runSpineAnimation.bind(this), this);
         mEventEmitter.instance.registerEvent(EventName.MANUAL_ANIMATION, this.runManualAnimation.bind(this), this);
+        mEventEmitter.instance.registerEvent(EventName.RESET_CHARACTER, this.resetAnimation.bind(this), this);
     },
 
     onDestroy() {
@@ -67,8 +68,7 @@ export const AnimationManager = cc.Class({
     },
 
     runManualAnimation(animationType) {
-        this.manualAnimation.stopAllAnimations();
-        this.characterSpine.getComponent(Character).resetCharacter();
+        this.resetAnimation();
 
         switch (animationType) {
             case EAnimationType.TWEEN:
@@ -80,11 +80,16 @@ export const AnimationManager = cc.Class({
                 break;
 
             case EAnimationType.ANIMATION_CLIP:
-                this.manualAnimation.animationClip("Spine Clip");
+                this.manualAnimation.animationClip(AnimationClip.CHARACTER_CLIP);
                 break;
 
             default:
                 break;
         }
     },
+
+    resetAnimation() {
+        this.manualAnimation.stopAllAnimations();
+        this.characterSpine.getComponent(Character).resetCharacter();
+    }
 });

@@ -1,3 +1,6 @@
+import { EventName } from "./Ex3_Constant";
+import mEventEmitter from "./EX3_EventEmitter";
+
 export const Character = cc.Class({
     extends: cc.Component,
 
@@ -22,6 +25,13 @@ export const Character = cc.Class({
         this.originPosition = this.node.position;
         this.originScale = this.node.scale;
         this.originRotation = this.node.angle;
+
+        this.node.on(cc.Node.EventType.MOUSE_DOWN, this.callback, this);
+    },
+
+    callback() {
+        console.log("Active UI");
+        mEventEmitter.instance.emit(EventName.ACTIVE_UI);
     },
 
     resetCharacter() {
