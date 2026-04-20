@@ -1,16 +1,12 @@
 export const EventName = {
     SPINE_ANIMATION: "SPINE_ANIMATION",
     MANUAL_ANIMATION: "MANUAL_ANIMATION",
-    ACTIVE_UI: "ACTIVE_UI",
     RESET_CHARACTER: "RESET_CHARACTER",
+    ACTIVE_UI: "ACTIVE_UI",
 }
 
 export const NodeName = {
     CHARACTER: "Character",
-}
-
-export const AnimationClip = {
-    CHARACTER_CLIP: "Character Clip",
 }
 
 export const EAnimationType = cc.Enum({

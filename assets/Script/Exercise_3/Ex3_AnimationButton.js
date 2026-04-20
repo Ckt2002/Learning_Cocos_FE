@@ -39,10 +39,6 @@ cc.Class({
         clickEventHandler.component = cc.js.getClassName(this);
         clickEventHandler.handler = "runAnimation";
         this.button.clickEvents.push(clickEventHandler);
-
-        this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
-            event.stopPropagation();
-        }, this);
     },
 
     runAnimation() {

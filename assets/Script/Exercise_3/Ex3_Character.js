@@ -18,19 +18,17 @@ export const Character = cc.Class({
         originRotation: {
             default: 0,
             visible: false,
-        }
+        },
     },
 
     onLoad() {
         this.originPosition = this.node.position;
         this.originScale = this.node.scale;
         this.originRotation = this.node.angle;
-
-        this.node.on(cc.Node.EventType.MOUSE_DOWN, this.callback, this);
+        this.node.on(cc.Node.EventType.MOUSE_DOWN, this.activeUI, this);
     },
 
-    callback() {
-        console.log("Active UI");
+    activeUI() {
         mEventEmitter.instance.emit(EventName.ACTIVE_UI);
     },
 
@@ -38,5 +36,9 @@ export const Character = cc.Class({
         this.node.position = this.originPosition;
         this.node.scale = this.originScale;
         this.node.angle = this.originRotation;
+    },
+
+    testClipEvent(param) {
+        console.log(`Animation clip function event with parameter: ${param}`);
     }
 });

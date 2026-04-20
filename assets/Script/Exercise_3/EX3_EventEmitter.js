@@ -18,6 +18,12 @@ class mEventEmitter {
             if (!this.listenerMap.has(owner)) {
                 this.listenerMap.set(owner, []);
             }
+            for (let detail of this.listenerMap.get(owner)) {
+                if (detail.eventName === eventName) {
+                    console.log("Event existed");
+                    return;
+                }
+            }
             this.listenerMap.get(owner).push({ eventName, method });
         }
     }
@@ -43,6 +49,8 @@ class mEventEmitter {
         });
 
         this.listenerMap.delete(owner);
+
+        console.log(`Listener remain: ${this.listenerMap}`);
     }
 
     destroy() {

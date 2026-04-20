@@ -1,4 +1,4 @@
-import { AnimationClip, EAnimationType, EventName, NodeName } from "./Ex3_Constant";
+import { EAnimationType, EventName, NodeName } from "./Ex3_Constant";
 import mEventEmitter from "./EX3_EventEmitter";
 import { Character } from "./Ex3_Character";
 import ManualAnimation from "./Ex3_ManualAnimation";
@@ -45,12 +45,19 @@ export const AnimationManager = cc.Class({
     },
 
     start() {
-        mEventEmitter.instance.registerEvent(EventName.SPINE_ANIMATION, this.runSpineAnimation.bind(this), this);
-        mEventEmitter.instance.registerEvent(EventName.MANUAL_ANIMATION, this.runManualAnimation.bind(this), this);
-        mEventEmitter.instance.registerEvent(EventName.RESET_CHARACTER, this.resetAnimation.bind(this), this);
+        this.registerEvents();
     },
 
     onDestroy() {
+        this.removeAllEvents();
+    },
+
+    registerEvents() {
+        mEventEmitter.instance.registerEvent(EventName.SPINE_ANIMATION, this.runSpineAnimation.bind(this), this);
+        mEventEmitter.instance.registerEvent(EventName.MANUAL_ANIMATION, this.runManualAnimation.bind(this), this);
+    },
+
+    removeAllEvents() {
         mEventEmitter.instance.removeAllEvents(this);
     },
 
@@ -80,7 +87,7 @@ export const AnimationManager = cc.Class({
                 break;
 
             case EAnimationType.ANIMATION_CLIP:
-                this.manualAnimation.animationClip(AnimationClip.CHARACTER_CLIP);
+                this.manualAnimation.animationClip(this.animationComponent.getClips()[0].name);
                 break;
 
             default:

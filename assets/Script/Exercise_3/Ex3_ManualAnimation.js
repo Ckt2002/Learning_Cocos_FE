@@ -10,7 +10,7 @@ class ManualAnimation {
             .tag(10)
             .to(2, { scale: 0.1, position: cc.v2(0, 0), angle: -180 }, { easing: 'backInOut' })
             .delay(1)
-            .to(1, { scale: 0.5, angle: 0 }, { easing: 'expoOut' })
+            .to(1, { scale: 0.5, angle: 0 }, { easing: 'bounceOut' })
             .call(() => { cc.log('End Tween') })
 
         this.currentTween.start();
@@ -21,7 +21,7 @@ class ManualAnimation {
             cc.spawn(
                 cc.moveBy(1, 200, 0),
                 cc.scaleTo(1, 1, 1),
-                cc.rotateBy(2, 360),
+                cc.rotateBy(2, 360).easing(cc.easeBounceOut()),
             ),
 
             cc.delayTime(1),
@@ -32,8 +32,6 @@ class ManualAnimation {
                 cc.rotateBy(2, -360),
             ).speed(2),
         ).repeat(2);
-
-        actionSequence.easing(cc.easeCircleActionInOut(1));
         this.node.runAction(actionSequence);
     }
 
