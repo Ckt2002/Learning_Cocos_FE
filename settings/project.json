@@ -1,12 +1,32 @@
 {
   "collision-matrix": [
     [
+      false
+    ],
+    [
+      false,
+      false,
       true
+    ],
+    [
+      false,
+      true,
+      false,
+      true
+    ],
+    [
+      false,
+      false,
+      true,
+      false
     ]
   ],
   "excluded-modules": [],
   "group-list": [
-    "default"
+    "default",
+    "player",
+    "bullet",
+    "enemy"
   ],
   "design-resolution-width": 1560,
   "design-resolution-height": 720,
@@ -31,6 +51,5 @@
       "enable": false
     }
   },
-  "last-module-event-record-time": 1776076319942,
-  "start-scene": "current"
+  "last-module-event-record-time": 1776076319942
 }
