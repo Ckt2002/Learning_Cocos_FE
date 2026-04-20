@@ -36,9 +36,11 @@ cc.Class({
         let scaleValue = 0;
         if (this.isShowUI) {
             scaleValue = 1;
-            // this.spineAnimationList.active = this.isShowUI;
-            // this.animationButtons.active = this.isShowUI;
+            // this.spineAnimationList.active = true;
+            // this.animationButtons.active = true;
         }
+        // this.spineAnimationList.active = this.isShowUI;
+        // this.animationButtons.active = this.isShowUI;
 
         const actionSequence = cc.scaleTo(0.2, scaleValue, scaleValue).easing(cc.easeSineInOut());
 
