@@ -1,8 +1,10 @@
+import { EPlayerAction } from "../Enum/EPlayerMovement"
+
 export const InputManager = cc.Class({
     extends: cc.Component,
 
     properties: {
-        movementCallBacks: {
+        callBackMap: {
             default: null,
             type: Map,
         },
@@ -17,13 +19,13 @@ export const InputManager = cc.Class({
             InputManager.instance = this;
         }
 
-        this.movementCallBacks = new Map();
+        this.callBackMap = new Map();
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
     },
 
     onDestroy() {
-        this.movementCallBacks.clear();
+        this.callBackMap.clear();
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
     },
@@ -32,12 +34,20 @@ export const InputManager = cc.Class({
         switch (event.keyCode) {
             case cc.macro.KEY.w:
             case cc.macro.KEY.up:
-                this.movementCallBacks.get(EPlayerAction.MOVE_UP)();
+                this.callBackMap.get(EPlayerAction.MOVE_UP)();
                 break;
 
             case cc.macro.KEY.s:
             case cc.macro.KEY.down:
-                this.movementCallBacks.get(EPlayerAction.MOVE_DOWN)();
+                this.callBackMap.get(EPlayerAction.MOVE_DOWN)();
+                break;
+
+            case cc.macro.KEY.space:
+                this.callBackMap.get(EPlayerAction.SHOOT)();
+                break;
+
+            case cc.macro.KEY.e:
+                console.log("Switch Bullet");
                 break;
 
             default:
@@ -51,7 +61,7 @@ export const InputManager = cc.Class({
             case cc.macro.KEY.up:
             case cc.macro.KEY.s:
             case cc.macro.KEY.down:
-                this.movementCallBacks.get(EPlayerAction.STOP_MOVING)();
+                this.callBackMap.get(EPlayerAction.STOP_MOVING)();
                 break;
 
             default:
@@ -60,6 +70,6 @@ export const InputManager = cc.Class({
     },
 
     assignCallBack(key, callBack) {
-        this.movementCallBacks.set(key, callBack);
+        this.callBackMap.set(key, callBack);
     }
 });

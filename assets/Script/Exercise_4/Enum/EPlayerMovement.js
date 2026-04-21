@@ -1,4 +1,4 @@
-const EPlayerAction = cc.Enum({
+export const EPlayerAction = cc.Enum({
     MOVE_UP: 0,
     MOVE_DOWN: 1,
     MOVE_LEFT: 2,

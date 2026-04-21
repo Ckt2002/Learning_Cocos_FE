@@ -2,6 +2,9 @@ import { EventEmitter } from "events";
 
 class mEventEmitter {
     constructor() {
+        if (mEventEmitter.instance === null) {
+            mEventEmitter.instance = new mEventEmitter();
+        }
         this.eventEmitter = new EventEmitter();
         this.eventEmitter.setMaxListeners(100);
         this.listenerMap = new Map();
