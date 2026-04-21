@@ -13,8 +13,8 @@
 
 #### Cocos Tasks
 
-- [ ] Add pooling for enemy
-- [ ] _(Additional)_ Create multiple bullet types
+- [x] Add pooling for enemy
+- [x] _(Additional)_ Create multiple bullet types
 - [x] Create a `character layer` node with a character manager to manage characters;
       apply the same pattern for bullets and enemies
 - [x] Play shoot animation from gun point toward an enemy

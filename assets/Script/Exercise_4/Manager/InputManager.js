@@ -47,7 +47,9 @@ export const InputManager = cc.Class({
                 break;
 
             case cc.macro.KEY.e:
-                console.log("Switch Bullet");
+                console.log(this.callBackMap);
+                console.log(this.callBackMap.get(EPlayerAction.SWITCH_BULLET));
+                this.callBackMap.get(EPlayerAction.SWITCH_BULLET)();
                 break;
 
             default:

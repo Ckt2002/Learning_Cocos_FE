@@ -4,5 +4,6 @@ export const EPlayerAction = cc.Enum({
     MOVE_LEFT: 2,
     MOVE_RIGHT: 3,
     STOP_MOVING: 4,
-    SHOOT: 5
+    SHOOT: 5,
+    SWITCH_BULLET: 6,
 })

@@ -1,10 +1,10 @@
 export const GameConfig = {
     limitEnemyVertical: {
-        min: -170,
-        max: 250,
+        min: -250,
+        max: 270,
     },
     limitPlayerVertical: {
         min: -350,
-        max: 160,
+        max: 170,
     },
 }

@@ -217,7 +217,8 @@
     },
     "_enabled": true,
     "existTime": 10,
-    "moveSpeed": 100,
+    "moveSpeed": 600,
+    "damage": 10,
     "currentTime": 0,
     "_id": ""
   },

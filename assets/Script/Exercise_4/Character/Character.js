@@ -33,7 +33,7 @@ export const Character = cc.Class({
 
     onEnable() {
         this.resetCoolDown();
-        this.changeAnimation('walk');
+        this.changeAnimation('idle');
     },
 
     resetCoolDown() {

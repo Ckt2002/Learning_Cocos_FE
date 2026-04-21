@@ -1,4 +1,4 @@
-export const SpawnerManager = cc.Class({
+export const BulletSpawner = cc.Class({
     extends: cc.Component,
 
     properties: {
@@ -13,8 +13,8 @@ export const SpawnerManager = cc.Class({
     },
 
     onLoad() {
-        if (SpawnerManager.instance === null) {
-            SpawnerManager.instance = this;
+        if (BulletSpawner.instance === null) {
+            BulletSpawner.instance = this;
         }
     },
 

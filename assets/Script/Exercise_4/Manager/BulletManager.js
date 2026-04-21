@@ -1,8 +1,10 @@
 import { Bullet } from "../Bullet/Bullet";
 import { CEventName } from "../Constant/CEventName";
 import { EBulletType } from "../Enum/EBulletType";
+import { EPlayerAction } from "../Enum/EPlayerMovement";
 import mEventEmitter from "../Event Emitter/EventEmitter";
-import { SpawnerManager } from "./SpawnerManager";
+import { BulletSpawner } from "../Spawner/BulletSpawner";
+import { InputManager } from "./InputManager";
 
 export const BulletManager = cc.Class({
     extends: cc.Component,
@@ -17,7 +19,7 @@ export const BulletManager = cc.Class({
             default: 10,
         },
 
-        bullets: {
+        bulletMap: {
             default: null,
             type: Map,
             visible: false,
@@ -25,14 +27,20 @@ export const BulletManager = cc.Class({
 
         spawnerManager: {
             default: null,
-            type: SpawnerManager,
+            type: BulletSpawner,
             visible: false,
         },
 
-        currentBullets: {
+        inputManager: {
+            default: null,
+            type: InputManager,
+            visible: false,
+        },
+
+        activatedBullets: {
             default: [],
             type: [Bullet],
-            // visible: false,
+            visible: false,
         },
 
         currentBulletType: {
@@ -50,18 +58,19 @@ export const BulletManager = cc.Class({
         if (BulletManager.instance === null) {
             BulletManager.instance = this;
         }
-        this.bullets = new Map();
+        this.bulletMap = new Map();
     },
 
     start() {
-        this.spawnerManager = SpawnerManager.instance;
+        this.assignInstances();
+        this.assignCallbacks();
         this.spawnBulletsByNumber();
         this.registerEvents();
     },
 
     update(dt) {
-        if (this.currentBullets.length > 0) {
-            for (let bullet of this.currentBullets) {
+        if (this.activatedBullets.length > 0) {
+            for (let bullet of this.activatedBullets) {
                 if (bullet.currentTime >= bullet.existTime) {
                     this.returnBullet(bullet);
                     continue;
@@ -74,6 +83,15 @@ export const BulletManager = cc.Class({
 
     onDestroy() {
         this.removeAllEvents();
+    },
+
+    assignInstances() {
+        this.spawnerManager = BulletSpawner.instance;
+        this.inputManager = InputManager.instance;
+    },
+
+    assignCallbacks() {
+        this.inputManager.assignCallBack(EPlayerAction.SWITCH_BULLET, this.switchBullet.bind(this));
     },
 
     registerEvents() {
@@ -100,18 +118,24 @@ export const BulletManager = cc.Class({
     },
 
     assignBullet(type, bulletNode) {
-        if (!this.bullets.has(type)) {
-            this.bullets.set(type, []);
+        if (!this.bulletMap.has(type)) {
+            this.bulletMap.set(type, []);
         }
-        this.bullets.get(type).push(bulletNode);
+        this.bulletMap.get(type).push(bulletNode);
     },
 
-    switchBullet(bulletType) {
-        currentBulletType = bulletType;
+    switchBullet() {
+        let index = this.bulletTypes.indexOf(this.currentBulletType);
+        index++;
+        if (index === this.bulletTypes.length) {
+            index = 0;
+        }
+        this.currentBulletType = this.bulletTypes[index];
+        console.log(this.currentBulletType);
     },
 
     getBullet() {
-        const bulletArray = this.bullets.get(this.currentBulletType);
+        const bulletArray = this.bulletMap.get(this.currentBulletType);
         let gottenBullet = null;
         for (let bullet of bulletArray) {
             if (!bullet.active) {
@@ -125,16 +149,16 @@ export const BulletManager = cc.Class({
             gottenBullet = bulletArray[bulletArray.length - 1].getComponent(Bullet);
         }
 
-        this.currentBullets.push(gottenBullet);
+        this.activatedBullets.push(gottenBullet);
         return gottenBullet;
     },
 
     returnBullet(bulletToReturn) {
         bulletToReturn.node.active = false;
 
-        for (let index = 0; index < this.currentBullets.length; index++) {
-            if (this.currentBullets[index] === bulletToReturn) {
-                this.currentBullets.splice(index, 1);
+        for (let index = 0; index < this.activatedBullets.length; index++) {
+            if (this.activatedBullets[index] === bulletToReturn) {
+                this.activatedBullets.splice(index, 1);
                 return;
             }
         }

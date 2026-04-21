@@ -8,6 +8,13 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        respawnTime: 1,
+
+        respawnCoolDown: {
+            default: 0,
+            visible: false,
+        },
+
         enemies: {
             default: [],
             type: [cc.Node],
@@ -24,6 +31,10 @@ cc.Class({
         instance: null,
     },
 
+    onLoad() {
+        this.respawnCoolDown = this.respawnTime;
+    },
+
     start() {
         this.assignNewObjects();
         this.registerEvents();
@@ -31,6 +42,25 @@ cc.Class({
 
     update(dt) {
         this.autoMovement.runUpdate(dt);
+        this.respawnEnemies(dt);
+    },
+
+    respawnEnemies(dt) {
+        for (let enemy of this.enemies) {
+            if (enemy.active) {
+                return;
+            }
+        }
+
+        this.respawnCoolDown -= dt;
+        if (this.respawnCoolDown > 0) {
+            return;
+        }
+
+        for (let enemy of this.enemies) {
+            enemy.active = true;
+        }
+        this.respawnCoolDown = this.respawnTime;
     },
 
     onDestroy() {
