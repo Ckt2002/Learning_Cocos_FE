@@ -1,5 +1,7 @@
 import { Bullet } from "../Bullet/Bullet";
+import { CEventName } from "../Constant/CEventName";
 import { EBulletType } from "../Enum/EBulletType";
+import mEventEmitter from "../Event Emitter/EventEmitter";
 import { SpawnerManager } from "./SpawnerManager";
 
 export const BulletManager = cc.Class({
@@ -48,13 +50,13 @@ export const BulletManager = cc.Class({
         if (BulletManager.instance === null) {
             BulletManager.instance = this;
         }
-
         this.bullets = new Map();
     },
 
     start() {
         this.spawnerManager = SpawnerManager.instance;
         this.spawnBulletsByNumber();
+        this.registerEvents();
     },
 
     update(dt) {
@@ -65,9 +67,21 @@ export const BulletManager = cc.Class({
                     continue;
                 }
                 bullet.currentTime += dt;
-                bullet.node.x += 100 * dt;
+                bullet.node.x += bullet.moveSpeed * dt;
             }
         }
+    },
+
+    onDestroy() {
+        this.removeAllEvents();
+    },
+
+    registerEvents() {
+        mEventEmitter.instance.registerEvent(CEventName.RETURN_BULLET, this.returnBullet.bind(this), this);
+    },
+
+    removeEvents() {
+        mEventEmitter.instance.removeAllEvents(this);
     },
 
     spawnBulletsByNumber() {

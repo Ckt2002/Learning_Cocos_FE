@@ -216,7 +216,7 @@
       "__id__": 1
     },
     "_enabled": true,
-    "existTime": 5,
+    "existTime": 10,
     "moveSpeed": 100,
     "currentTime": 0,
     "_id": ""

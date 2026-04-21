@@ -1,21 +1,50 @@
-import { CharacterConfig } from "../Config/CharacterConfig";
-
 export const Character = cc.Class({
     extends: cc.Component,
 
     properties: {
-        characterConfig: {
-            default: null,
-            type: CharacterConfig,
+        fireRate: {
+            default: 0,
+        },
+
+        moveSpeed: {
+            default: 300
         },
 
         firePoint: {
             default: null,
             type: cc.Node,
+        },
+
+        spine: {
+            default: null,
+            type: sp.Skeleton,
+        },
+
+        moveDirection: {
+            default: 0,
+            visible: false,
+        },
+
+        fireCoolDown: {
+            default: 0,
+            visible: false,
         }
     },
 
-    onLoad() {
-        this.characterConfig = new CharacterConfig();
+    onEnable() {
+        this.resetCoolDown();
+        this.changeAnimation('walk');
+    },
+
+    resetCoolDown() {
+        this.fireCoolDown = this.fireRate;
+    },
+
+    isFireValid() {
+        return this.fireCoolDown <= 0;
+    },
+
+    changeAnimation(animationName) {
+        this.spine.setAnimation(0, animationName, true);
     }
 });

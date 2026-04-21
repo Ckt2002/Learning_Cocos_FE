@@ -216,8 +216,9 @@
       "__id__": 1
     },
     "_enabled": true,
-    "existTime": 5,
-    "moveSpeed": 100,
+    "existTime": 10,
+    "moveSpeed": 400,
+    "damage": 10,
     "currentTime": 0,
     "_id": ""
   },

@@ -13,17 +13,16 @@
 
 #### Cocos Tasks
 
-- [ ] Update exercise 2
-- [ ] Create a `character layer` node with a character manager to manage characters;
-      apply the same pattern for bullets
-- [ ] Use keyboard controls:
-  - Arrow keys: move up / down / slight left & right
-  - Space: shoot
-- [ ] Play shoot animation from gun point toward an enemy
-- [ ] Reset to idle after shooting.
-- [ ] Implement enemy up/down movement
-- [ ] Create multiple collision boxes for the character
+- [ ] Add pooling for enemy
 - [ ] _(Additional)_ Create multiple bullet types
+- [x] Create a `character layer` node with a character manager to manage characters;
+      apply the same pattern for bullets and enemies
+- [x] Play shoot animation from gun point toward an enemy
+- [x] Reset to idle after shooting
+- [x] Use keyboard controls:
+  - Arrow keys: move up / down
+  - Space: shoot
+- [x] Implement enemy up/down movement
   - Different image, damage value, and speed per type
 
 #### Notes

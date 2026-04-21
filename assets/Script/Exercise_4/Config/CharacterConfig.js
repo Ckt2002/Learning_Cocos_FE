@@ -5,7 +5,7 @@ export const CharacterConfig = cc.Class({
         },
 
         moveSpeed: {
-            default: 100
+            default: 300
         },
     }
 });

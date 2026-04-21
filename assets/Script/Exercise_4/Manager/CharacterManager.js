@@ -1,15 +1,16 @@
 import { Character } from "../Character/Character";
+import { GameConfig } from "../Config/GameConfig";
 import { EPlayerAction } from "../Enum/EPlayerMovement";
 import { BulletManager } from "./BulletManager";
 import { InputManager } from "./InputManager";
-import MovementManager from "./MovementManager";
+import InputMovement from "../Movement/InputMovement";
 import ShootingManager from "./ShootingManager";
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        currentPlayer: {
+        currentCharacter: {
             default: null,
             type: cc.Node,
         },
@@ -32,9 +33,9 @@ cc.Class({
             visible: false,
         },
 
-        movementManager: {
+        inputMovement: {
             default: null,
-            type: MovementManager,
+            type: InputMovement,
             visible: false,
         },
 
@@ -46,7 +47,7 @@ cc.Class({
     },
 
     onLoad() {
-        this.characterComponent = this.currentPlayer.getComponent(Character);
+        this.characterComponent = this.currentCharacter.getComponent(Character);
     },
 
     start() {
@@ -56,7 +57,8 @@ cc.Class({
     },
 
     update(dt) {
-        this.movementManager.runUpdate(dt);
+        this.inputMovement.runUpdate(dt);
+        this.shootingManager.updateCoolDown(dt);
     },
 
     assignInstances() {
@@ -65,14 +67,18 @@ cc.Class({
     },
 
     assignNewObjects() {
-        this.movementManager = new MovementManager(this.currentPlayer, this.characterComponent.characterConfig.moveSpeed);
+        this.inputMovement = new InputMovement(
+            this.currentCharacter,
+            GameConfig.limitPlayerVertical,
+            this.characterComponent.moveSpeed
+        );
         this.shootingManager = new ShootingManager(this.bulletManager, this.characterComponent);
     },
 
     assignCallBacks() {
-        this.inputManager.assignCallBack(EPlayerAction.MOVE_UP, this.movementManager.moveUp.bind(this.movementManager));
-        this.inputManager.assignCallBack(EPlayerAction.MOVE_DOWN, this.movementManager.moveDown.bind(this.movementManager));
-        this.inputManager.assignCallBack(EPlayerAction.STOP_MOVING, this.movementManager.stopMoving.bind(this.movementManager));
+        this.inputManager.assignCallBack(EPlayerAction.MOVE_UP, this.inputMovement.moveUp.bind(this.inputMovement));
+        this.inputManager.assignCallBack(EPlayerAction.MOVE_DOWN, this.inputMovement.moveDown.bind(this.inputMovement));
+        this.inputManager.assignCallBack(EPlayerAction.STOP_MOVING, this.inputMovement.stopMoving.bind(this.inputMovement));
 
         this.inputManager.assignCallBack(EPlayerAction.SHOOT, this.shootingManager.shoot.bind(this.shootingManager));
     },

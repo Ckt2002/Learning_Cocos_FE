@@ -1,0 +1,4 @@
+export const CEventName = {
+    ENEMY_TAKE_DAMAGE: "ENEMY_TAKE_DAMAGE",
+    RETURN_BULLET: "RETURN_BULLET",
+}

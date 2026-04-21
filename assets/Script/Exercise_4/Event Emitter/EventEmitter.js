@@ -2,9 +2,10 @@ import { EventEmitter } from "events";
 
 class mEventEmitter {
     constructor() {
-        if (mEventEmitter.instance === null) {
-            mEventEmitter.instance = new mEventEmitter();
+        if (mEventEmitter.instance !== null) {
+            return;
         }
+        mEventEmitter.instance = this;
         this.eventEmitter = new EventEmitter();
         this.eventEmitter.setMaxListeners(100);
         this.listenerMap = new Map();
@@ -36,7 +37,6 @@ class mEventEmitter {
     }
 
     removeEvent(eventName, method) {
-        // this.eventEmitter.off(eventName, method);
         this.eventEmitter.removeListener(eventName, method);
     }
 
@@ -46,14 +46,10 @@ class mEventEmitter {
         }
 
         const listeners = this.listenerMap.get(owner);
-
         listeners.forEach(({ eventName, method }) => {
-            this.eventEmitter.removeListener(eventName, method);
+            this.removeEvent(eventName, method);
         });
-
         this.listenerMap.delete(owner);
-
-        console.log(`Listener remain: ${this.listenerMap}`);
     }
 
     destroy() {
