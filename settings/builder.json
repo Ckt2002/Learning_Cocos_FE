@@ -1,6 +1,8 @@
 {
   "excludeScenes": [
-    "7a151ed6-7970-45f7-84c8-b982a92f0912"
+    "7a151ed6-7970-45f7-84c8-b982a92f0912",
+    "3ce74c37-0f98-4ea2-90ff-ba43d59d3264",
+    "8a1f4e39-6ca3-4426-a649-26229ecc20c8"
   ],
   "orientation": {
     "landscapeLeft": true,
@@ -9,7 +11,7 @@
     "upsideDown": false
   },
   "packageName": "org.cocos2d.helloworld",
-  "startScene": "3ce74c37-0f98-4ea2-90ff-ba43d59d3264",
+  "startScene": "2e2a905f-749e-4b48-b2a3-d1e182825260",
   "title": "1_ScrollVIew",
   "webOrientation": "auto",
   "inlineSpriteFrames": true,

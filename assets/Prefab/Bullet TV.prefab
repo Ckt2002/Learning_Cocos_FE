@@ -219,6 +219,11 @@
     "existTime": 10,
     "moveSpeed": 500,
     "damage": 50,
+    "rotateAnimation": true,
+    "sprite": {
+      "__id__": 2
+    },
+    "currentTween": null,
     "currentTime": 0,
     "_id": ""
   },

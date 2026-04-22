@@ -33,7 +33,7 @@ export const Character = cc.Class({
 
     onEnable() {
         this.resetCoolDown();
-        this.changeAnimation('idle');
+        this.spine.setAnimation(1, 'idle', true);
     },
 
     resetCoolDown() {

@@ -873,7 +873,7 @@
       "__id__": 15
     },
     "_enabled": true,
-    "fireRate": 1,
+    "fireRate": 0.5,
     "moveSpeed": 300,
     "firePoint": {
       "__id__": 16

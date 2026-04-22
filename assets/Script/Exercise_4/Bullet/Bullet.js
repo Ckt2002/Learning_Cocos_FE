@@ -8,6 +8,17 @@ export const Bullet = cc.Class({
         existTime: 5,
         moveSpeed: 100,
         damage: 10,
+        rotateAnimation: false,
+
+        sprite: {
+            default: null,
+            type: cc.Node,
+        },
+
+        currentTween: {
+            default: null,
+            visible: false,
+        },
 
         currentTime: {
             default: 0,
@@ -17,6 +28,13 @@ export const Bullet = cc.Class({
 
     onEnable() {
         this.currentTime = 0;
+    },
+
+    onDisable() {
+        if (this.currentTween) {
+            this.currentTween.stop();
+            this.currentTween = null;
+        }
     },
 
     onCollisionEnter(other, self) {
